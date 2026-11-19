@@ -166,14 +166,4 @@ The sample budget test reports exceeded limits for Food, Entertainment, Healthca
 - **Plain-Python pipeline:** executed against the sample CSV in the notebook.
 - **Qwen3 agent integration:** setup and conversation examples are present, but their cells have no saved execution outputs yet. Run these cells in a working Ollama runtime before describing the full agent workflow as end-to-end validated.
 
-## Future improvements
 
-- Add a reusable Python package and automated test suite.
-- Improve merchant categorization with configurable rules or a trained classifier.
-- Add configurable anomaly thresholds and richer explanations.
-- Add secure, local-only data ingestion and redaction options.
-- Add reproducible agent evaluation for tool selection, numeric faithfulness, and refusal behavior.
-
-## License
-
-No license has been added yet. Until a license is selected, the repository should be treated as all-rights-reserved by default.
