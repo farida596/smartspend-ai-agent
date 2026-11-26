@@ -88,13 +88,17 @@ def build_multi_agent_system(llm: Any, finance_tools: Iterable[Any]):
 
     # These async wrappers expose delegation as callable tools for the supervisor.
     delegation_tools: List[Any] = []
-    for worker_name in WORKER_TOOL_MAP:
-        async def delegate(query: str, _name=worker_name) -> str:
+    def make_delegate(name: str):
+        async def delegate(query: str) -> str:
             """Forward a question to the selected specialist and return its response."""
-            result = await workers[_name].run(query, ctx=worker_contexts[_name])
+            result = await workers[name].run(query, ctx=worker_contexts[name])
             return _as_text(result)
-        delegate.__name__ = f"ask_{worker_name}"
-        delegate.__doc__ = f"Delegate financial analysis to {worker_name.replace('_', ' ')}. Provide the task/question."
+        delegate.__name__ = f"ask_{name}"
+        delegate.__doc__ = f"Delegate financial analysis to {name.replace('_', ' ')}. Provide the task/question."
+        return delegate
+
+    for worker_name in WORKER_TOOL_MAP:
+        delegate = make_delegate(worker_name)
         delegation_tools.append(FunctionTool.from_defaults(fn=delegate, name=delegate.__name__, description=delegate.__doc__))
 
     supervisor = FunctionAgent(
