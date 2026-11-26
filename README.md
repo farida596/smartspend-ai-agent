@@ -167,3 +167,14 @@ The sample budget test reports exceeded limits for Food, Entertainment, Healthca
 - **Qwen3 agent integration:** setup and conversation examples are present, but their cells have no saved execution outputs yet. Run these cells in a working Ollama runtime before describing the full agent workflow as end-to-end validated.
 
 
+
+
+## Multi-agent architecture
+
+SmartSpend also includes an additive supervisor-based multi-agent layer: an Expense Analyst, Budget Agent, Anomaly Investigator, and Savings & Planning Agent. The specialist agents reuse the original deterministic finance tools.
+
+- Architecture: [docs/architecture.md](docs/architecture.md)
+- Implementation: [agents/multi_agent.py](agents/multi_agent.py)
+- Additional overview: [README_MULTI_AGENT.md](README_MULTI_AGENT.md)
+
+The notebook includes an integration section for initializing and trying the supervisor. The multi-agent runtime still requires the configured Ollama model; it has not been runtime-validated in this change.
